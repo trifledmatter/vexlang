@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 
+#include "response.hpp"
 #include "commands/ping.hpp"
 
 /**
@@ -36,12 +37,11 @@ void handler(const char* message) {
     std::vector<std::string> tokens = tokenize(message);
 
     if (tokens.size() < 3) {
-        pros::lcd::set_text(4, "Invalid Command");
+        update_screen("Invalid Command Length", "None");
         return;
     }
 
     std::string key = tokens[1] + " " + tokens[2];
-    printf("Attempting to execute: %s\n", key.c_str());
 
     commandManager.executeCommand(key, {tokens.begin() + 3, tokens.end()});
 }

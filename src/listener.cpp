@@ -12,7 +12,6 @@ void listener(void* param) {
     while (true) {
         if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
             buffer[strcspn(buffer, "\n")] = 0;
-            printf("found: %s\n", buffer);
             handler(buffer);
         }
 
