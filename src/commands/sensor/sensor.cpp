@@ -4,7 +4,7 @@
 
 SensorCommand::SensorCommand()
     : Command(
-          "vex sensor", 
+          "sensor", 
           "ethan@trifledmatter.com", 
           "Controls sensor actions such as get reading, calibrate, reset, etc.", 
           "sensor", 

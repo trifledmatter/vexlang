@@ -1,20 +1,5 @@
 ## vex <category> <command> [arguments...]
 
----
-
-vex robot move <dist> <s>
-vex robot turn <angle> <s>
-vex robot stop
-vex robot reset
-
-### Communication
-
----
-
-vex comm send <msg>
-vex comm receive
-vex comm setChannel <cn>
-
 ### Debug
 
 ---
