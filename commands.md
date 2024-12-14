@@ -1,15 +1,5 @@
 ## vex <category> <command> [arguments...]
 
-### Screen
-
----
-
-vex screen clear
-vex screen print <text> [x] [y]
-vex screen setColor <c>
-
-### Motor
-
 ---
 
 vex motor <m> set <speed>

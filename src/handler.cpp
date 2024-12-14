@@ -36,7 +36,7 @@ std::vector<std::string> tokenize(const char* message) {
 void handler(const char* message) {
     std::vector<std::string> tokens = tokenize(message);
 
-    if (tokens.size() < 3) {
+    if (tokens.size() < 2) {
         update_screen("Invalid Command Length", "None");
         return;
     }
