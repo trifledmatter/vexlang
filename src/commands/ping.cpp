@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 PingCommand::PingCommand()
-    : Command("ping", "Ethan", "Pong!", "misc", 1.0f) {}
+    : Command("ping", "ethan@trifledmatter.com", "Pong!", "misc", 1.0f) {}
 
 void PingCommand::execute(const std::vector<std::string>& args) {
     pros::lcd::initialize();

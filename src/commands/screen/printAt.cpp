@@ -2,7 +2,7 @@
 #include "response.hpp"
 
 PrintAtCommand::PrintAtCommand() 
-    : Command("printAt", "Screen", "Prints message at specified coordinates", "screen", 1.0f) {}
+    : Command("printAt", "ethan@trifledmatter.com", "Prints message at specified coordinates", "screen", 1.0f) {}
 
 void PrintAtCommand::execute(const std::vector<std::string>& args) {
     if (args.size() < 2) {

@@ -2,7 +2,7 @@
 #include "response.hpp"
 
 PrintCommand::PrintCommand() 
-    : Command("print", "System", "Prints a message", "screen", 1.0f) {}
+    : Command("print", "ethan@trifledmatter.com", "Prints a message", "screen", 1.0f) {}
 
 void PrintCommand::execute(const std::vector<std::string>& args) {
     if (args.empty()) {

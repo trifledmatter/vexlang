@@ -2,7 +2,7 @@
 #include "response.hpp"
 
 SetColorCommand::SetColorCommand() 
-    : Command("setColor", "System", "Sets screen color (pen or eraser)", "screen", 1.0f) {}
+    : Command("setColor", "ethan@trifledmatter.com", "Sets screen color (pen or eraser)", "screen", 1.0f) {}
 
 void SetColorCommand::execute(const std::vector<std::string>& args) {
     if (args.empty()) {
