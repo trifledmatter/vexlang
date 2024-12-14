@@ -5,7 +5,7 @@
 
 class PingCommand : public Command {
 public:
-    PingCommand() : Command("ping", "Ethan", "Responds with pong", "misc", 1.0f) {}
+    PingCommand();
 
     void execute(const std::vector<std::string>& args) override;
 };

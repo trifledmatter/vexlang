@@ -8,12 +8,6 @@
 #include <iostream>
 #include "command.hpp"
 
-// ---- Include Command Headers Here ----
-
-#include "commands/ping.hpp"
-
-// ---- End Include Commands Headers ----
-
 class CommandManager {
 public:
     std::map<std::string, std::unique_ptr<Command>> commands;

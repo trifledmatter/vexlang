@@ -6,7 +6,6 @@
 
 vex screen clear
 vex screen print <text> [x] [y]
-vex screen setBrightness <l>
 vex screen setColor <c>
 
 ### Motor
