@@ -3,7 +3,7 @@
 
 ## Abstract
 
-VEXLANG is a DSL (domain-specific language) layer built on top of the VEX v5 ecosystem. It fixes the fact that you can't talk to a VEX robot dynamically over serial. This project is basically a VEX app that sits there, listens to serial commands, and does what you tell it to. Serial input becomes robot actions. It's clean, modular, and kind of cool if you like robots.
+### VEXLANG is a DSL (domain-specific language) layer built on top of the VEX v5 ecosystem. It fixes the fact that you can't talk to a VEX robot dynamically over serial. This project is basically a VEX app that sits there, listens to serial commands, and does what you tell it to. Serial input becomes robot actions. It's clean, modular, and kind of cool if you like robots.
 ---
 
 ## What It Does
