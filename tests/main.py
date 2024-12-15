@@ -34,7 +34,7 @@ class SerialCommunication:
         try:
             formatted_command = f"{command}\n"
             self.serial_connection.write(formatted_command.encode("utf-8"))
-            self.serial_connection.flush()  # Ensure data is sent immediately
+            self.serial_connection.flush()
             print(f"\n> {command}")
         except serial.SerialException as e:
             print(f"\nSerial error while sending command: {e}")
@@ -47,12 +47,11 @@ class SerialCommunication:
 
 
 if __name__ == "__main__":
-    serial_port = "/dev/ttyACM1"  # Adjust for your system
-    baud_rate = 115200  # VEX V5 default baud rate for USB serial
+    serial_port = "/dev/ttyACM1"
+    baud_rate = 115200
 
     serial_comm = SerialCommunication(serial_port, baud_rate)
 
-    # Start the listening thread to constantly check for incoming data
     listen_thread = threading.Thread(
         target=serial_comm.listen_for_response, daemon=True
     )
