@@ -1,0 +1,36 @@
+## TODO for VEXLANG
+
+### Maybe I implement these maybe I won't since the project just as-is is fine enough to get started
+
+---
+
+[] `vex controller getButton <b>` (HIGH PRIORITY)  
+[] `vex controller getAnalog <a>` (HIGH PRIORITY)  
+[] `vex controller vibrate <pattern>` (HIGH PRIORITY)  
+[] `vex motor <m> getTelemetry` (HIGH PRIORITY)  
+[] `vex motor <m> setBrake <mode>` (HIGH PRIORITY)  
+[] `vex motor all setVelocity <speed>` (HIGH PRIORITY)  
+[] `vex debug getLogs` (HIGH PRIORITY)  
+[] `vex debug monitor <m>` (HIGH PRIORITY)  
+[] `vex debug stopMonitor` (HIGH PRIORITY)  
+[] `vex screen print <x> <y> <msg>` (MEDIUM PRIORITY)  
+[] `vex screen clear` (MEDIUM PRIORITY)  
+[] `vex screen setColor <c>` (MEDIUM PRIORITY)  
+[] `vex pneumatics <p> extend` (MEDIUM PRIORITY)  
+[] `vex pneumatics <p> retract` (MEDIUM PRIORITY)  
+[] `vex pneumatics <p> toggle` (MEDIUM PRIORITY)  
+[] `vex system reset` (MEDIUM PRIORITY)  
+[] `vex system info` (MEDIUM PRIORITY)  
+[] `vex system setMode <mode>` (MEDIUM PRIORITY)  
+[] `vex sensor <s> getType` (MEDIUM PRIORITY)  
+[] `vex sensor <s> setRange <r>` (MEDIUM PRIORITY)  
+[] `vex sensor <s> getAngle` (MEDIUM PRIORITY)  
+[] `vex led setColor <s> <color>` (LOW PRIORITY)  
+[] `vex led clear <s>` (LOW PRIORITY)  
+[] `vex led animate <s> <pattern>` (LOW PRIORITY)  
+[] `vex motion startProfile <profile>` (LOW PRIORITY)  
+[] `vex motion stop` (LOW PRIORITY)  
+[] `vex motion setMaxVelocity <speed>` (LOW PRIORITY)  
+[] `vex auto start <routine>` (LOW PRIORITY)  
+[] `vex auto stop` (LOW PRIORITY)  
+[] `vex auto list` (LOW PRIORITY)
