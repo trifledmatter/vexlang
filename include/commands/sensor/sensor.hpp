@@ -3,23 +3,24 @@
 
 #include "command.hpp"
 #include "response.hpp"
-#include "pros/sensors.hpp"
+#include "pros/adi.hpp"
 #include <string>
 #include <vector>
 
-class SensorCommand : public Command {
+class SensorCommand : public Command
+{
 public:
     SensorCommand();
 
-    void execute(const std::vector<std::string>& args) override;
+    void execute(const std::vector<std::string> &args) override;
 
 private:
-    int parseSensorId(const std::string& sensorIdStr);
+    int parseSensorId(int sensorIdStr);
     void handleGetReadingAction(int sensorId);
     void handleCalibrateAction(int sensorId);
     void handleResetAction(int sensorId);
     void handleAllResetAction();
-    void handleInvalidAction(const std::string& action);
+    void handleInvalidAction(const std::string &action);
 };
 
 #endif

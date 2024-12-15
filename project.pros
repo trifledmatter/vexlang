@@ -257,7 +257,7 @@
     "upload_options": {
       "description": "https://github.com/trifledmatter/vexlang",
       "icon": "planet",
-      "slot": 2
+      "slot": 1
     },
     "use_early_access": false
   }

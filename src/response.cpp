@@ -6,24 +6,23 @@
 #include "pros/screen.hpp"
 
 #include <algorithm>
+#include <iostream>
 #include <string>
 
-void send_serial(const std::string& message) {
-    std::string formattedMessage = message;
-    std::transform(formattedMessage.begin(), formattedMessage.end(), formattedMessage.begin(), ::toupper);
-
-    formattedMessage = "<#" + formattedMessage + "#>";
-
+void send_serial(const std::string &message)
+{
+    std::string formattedMessage = "<#>" + message + "<#>\n";
     printf("%s", formattedMessage.c_str());
 }
 
-void update_screen(const std::string& errors = "None", const std::string& response = "None") {
+void update_screen(const std::string &errors = "None", const std::string &response = "None")
+{
     std::string err = errors;
     std::string resp = response;
 
     err = ">    - " + err;
     resp = ">    - " + resp;
-    
+
     pros::lcd::set_text(0, "> Errors:");
     pros::lcd::set_text(1, err);
     pros::lcd::set_text(2, "");

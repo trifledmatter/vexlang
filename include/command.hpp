@@ -14,12 +14,11 @@ public:
     std::string name;       
     std::string author;     
     std::string description;
-    std::string category;   
     float version;   
 
     Command(const std::string& name, const std::string& author, const std::string& description,
-            const std::string& category, float version)
-        : name(name), author(author), description(description), category(category), version(version) {}
+         float version)
+        : name(name), author(author), description(description), version(version) {}
 
     virtual void execute(const std::vector<std::string>& args) = 0;
 
@@ -27,7 +26,6 @@ public:
         std::cout << "Command: " << name << std::endl;
         std::cout << "Author: " << author << std::endl;
         std::cout << "Description: " << description << std::endl;
-        std::cout << "Category: " << category << std::endl;
         std::cout << "Version: " << version << std::endl;
     }
 

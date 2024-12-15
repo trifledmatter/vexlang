@@ -38,10 +38,11 @@ void handler(const char* message) {
 
     if (tokens.size() < 2) {
         update_screen("Invalid Command Length", "None");
+        send_serial("Invalid Command length");
         return;
     }
 
-    std::string key = tokens[1] + " " + tokens[2];
+    std::string key = tokens[1];
 
-    commandManager.executeCommand(key, {tokens.begin() + 3, tokens.end()});
+    commandManager.executeCommand(key, {tokens.begin() + 2, tokens.end()});
 }

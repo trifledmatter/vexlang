@@ -1,11 +1,15 @@
 #include "commands/screen/setColor.hpp"
 #include "response.hpp"
+#include "errors.hpp"
 
-SetColorCommand::SetColorCommand() 
-    : Command("setColor", "ethan@trifledmatter.com", "Sets screen color (pen or eraser)", "screen", 1.0f) {}
+SetColorCommand::SetColorCommand()
+    : Command("setColor", "ethan@trifledmatter.com", "Sets screen color (pen or eraser)", 1.0f) {}
 
-void SetColorCommand::execute(const std::vector<std::string>& args) {
-    if (args.empty()) {
+void SetColorCommand::execute(const std::vector<std::string> &args)
+{
+    handleErrors("Command Execution", [&]()
+                 {
+        if (args.empty()) {
         update_screen("NO COLOR PROVIDED", "None");
         return;
     }
@@ -35,5 +39,5 @@ void SetColorCommand::execute(const std::vector<std::string>& args) {
 
     std::string response = "Color set to " + color_name;
     update_screen("None", response);
-    send_serial(response);
+    send_serial(response); });
 }
