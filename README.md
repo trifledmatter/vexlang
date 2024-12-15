@@ -146,20 +146,11 @@ vex robot move 1 2 500 100
 
 ---
 
-### Debugging
+### Misc
 
-Turn debugging on/off.
-
-| Command           | What It Does      |
-| ----------------- | ----------------- |
-| `vex debug start` | Starts debugging. |
-| `vex debug stop`  | Stops debugging.  |
-
-Example:
-
-```
-vex debug start
-```
+| Command    | What It Does       |
+| ---------- | ------------------ |
+| `vex ping` | Replies with PONG! |
 
 ---
 
