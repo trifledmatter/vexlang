@@ -1,173 +1,161 @@
-# VEXLANG - Real-Time DSL Layer on top of the VEX v5
+---
+# VEXLANG - Real-Time DSL for VEX v5
 
 ## Abstract
 
-**VEX Lang** is a domain-specific language (DSL) layer and command-based interface for enabling real-time control of VEX robotics hardware. Designed to overcome the inherent limitations of VEX robots in handling real-time serial communication, this project acts as a VEX application that continuously listens for serial commands and executes them dynamically. VEX Lang transforms serial input into actionable robotics commands, allowing for seamless integration of real-time interactions, modular extensions, and robust error handling.
+VEXLANG is a DSL (domain-specific language) layer built on top of the VEX v5 ecosystem. It fixes the fact that you can't talk to a VEX robot dynamically over serial. This project is basically a VEX app that sits there, listens to serial commands, and does what you tell it to. Serial input becomes robot actions. It's clean, modular, and kind of cool if you like robots.
+---
+
+## What It Does
+
+Controlling VEX robots with the usual methods is annoying because they don't listen to serial input in real time. VEXLANG fixes that. It’s a layer that interprets commands, figures out what you meant, and makes the robot do it. You type something like "vex motor 1 set 100," and the robot sets motor 1 to speed 100. That’s it.
+
+It uses the PROS library to handle all the hardware stuff and a bunch of commands to make things work dynamically. If you need real-time debugging, prototyping, or just want to tinker, this is for you.
 
 ---
 
-## Introduction
+## Why It’s Useful
 
-Controlling a VEX robot through traditional means can be cumbersome due to the lack of support for direct, real-time serial interactions. Developers are often limited by low-level APIs and rigid control structures, making it impractical to achieve real-time feedback and action. **VEX Lang** addresses this fundamental limitation by providing a DSL layer, enabling the robot to listen for serial commands, interpret them, and execute corresponding actions dynamically during runtime.
+The VEX API doesn’t support real-time serial command execution. VEXLANG bridges this gap by:
 
-By combining the VEX PROS library with a robust command management system, VEX Lang creates an interface that abstracts hardware operations into human-readable commands. This system is ideal for robotics developers, educators, and researchers seeking to prototype, test, or control robots dynamically.
+1. Running a listener in the background to handle serial input.
+2. Mapping input to predefined commands.
+3. Sending feedback back to you through serial or the robot's screen.
 
----
-
-## Core Problem
-
-The VEX ecosystem lacks a native mechanism for dynamically interpreting serial input and executing hardware operations in real time. This project bridges that gap by:
-
-1. Implementing a listener task that continuously processes incoming serial commands.
-2. Mapping these commands to predefined actions using a modular and extensible command framework.
-3. Providing real-time feedback via serial responses and on-screen updates.
-
----
-
-## Features
-
-- **Dynamic Command Execution**: Interpret and execute serial commands in real time.
-- **Extensible DSL**: Add custom commands to control motors, sensors, and other hardware.
-- **Error Handling**: Comprehensive error reporting for invalid commands or hardware issues.
-- **Feedback Mechanism**: Real-time responses via serial output and robot screen updates.
-- **Modular Design**: Framework for seamlessly adding new hardware commands.
+This is useful for quick testing, prototyping, or just yelling at your robot.
 
 ---
 
 ## Installation and Setup
 
-### Prerequisites
+### Requirements
 
-- [PROS CLI](https://pros.cs.purdue.edu/v5/cli/) for VEX development.
-- A computer with a serial interface (e.g., USB).
+- [PROS CLI](https://pros.cs.purdue.edu/v5/cli/)
+- A computer with a serial port.
 
-### Installation
+### Steps
 
-1. Clone the repository:
+1. Clone this:
    ```bash
    git clone <repository_url>
    ```
-2. Build the project:
+2. Build it:
    ```bash
    pros make
    ```
-3. Upload the project to the VEX robot:
+3. Upload it to your robot:
    ```bash
    pros upload
    ```
-4. Connect to the robot's serial port using your preferred terminal or the provided Python script.
+4. Open a serial terminal (or use the Python script provided).
 
 ---
 
-## Usage
+## How to Use It
 
-### Workflow
-
-1. Start the VEX application on the robot. It will enter "listening mode," waiting for serial commands.
-2. Send commands via a serial terminal or a custom interface (e.g., the provided Python script).
-3. The robot executes commands in real time and sends feedback via serial responses or on-screen updates.
+1. Run the program on your VEX robot.
+2. Send commands like "vex motor 1 set 100" through serial.
+3. Watch the magic happen.
 
 ---
 
-### Command Syntax
-
-Commands are structured as follows:
+### Command Format
 
 ```
 vex <command_category> <identifier> <action> <arguments>
 ```
 
-#### Components
-
-- **command_category**: The hardware or subsystem to control (e.g., `motor`, `sensor`).
-- **identifier**: Specifies the target component (e.g., motor ID, sensor ID, `all`).
-- **action**: The operation to perform (e.g., `set`, `calibrate`).
-- **arguments**: Additional parameters required by the action.
-
 ---
 
-## Command Reference
+## Commands You Can Use
 
-### 1. **Motor Commands**
+### Motors
 
-Control individual or multiple motors dynamically.
+Control individual or multiple motors.
 
-| Command                          | Description                                              |
-| -------------------------------- | -------------------------------------------------------- |
-| `vex motor <m> set <speed>`      | Sets motor `<m>` to a specific speed.                    |
-| `vex motor <m> stop`             | Stops motor `<m>`.                                       |
-| `vex motor <m> setDirection <d>` | Sets the direction of motor `<m>` (`forward`/`reverse`). |
-| `vex motor <m> setPosition <p>`  | Sets the position of motor `<m>` to `<p>`.               |
-| `vex motor <m> setPower <p>`     | Sets the power of motor `<m>` to `<p>`.                  |
-| `vex motor all stop`             | Stops all motors.                                        |
+| Command                          | What It Does                        |
+| -------------------------------- | ----------------------------------- |
+| `vex motor <m> set <speed>`      | Set motor `<m>` speed to `<speed>`. |
+| `vex motor <m> stop`             | Stop motor `<m>`.                   |
+| `vex motor <m> setDirection <d>` | Set motor `<m>` direction.          |
+| `vex motor <m> setPosition <p>`  | Move motor `<m>` to position `<p>`. |
+| `vex motor all stop`             | Stop all motors.                    |
 
-**Example:**
+Example:
 
 ```
 vex motor 1 set 100
 ```
 
-### 2. **Sensor Commands**
+---
 
-Retrieve or calibrate sensor readings in real time.
+### Sensors
 
-| Command                     | Description                              |
-| --------------------------- | ---------------------------------------- |
-| `vex sensor <s> getReading` | Retrieves the reading from sensor `<s>`. |
-| `vex sensor <s> calibrate`  | Calibrates sensor `<s>`.                 |
-| `vex sensor <s> reset`      | Resets sensor `<s>`.                     |
-| `vex sensor all reset`      | Resets all sensors.                      |
+Get data or calibrate sensors.
 
-**Example:**
+| Command                     | What It Does                       |
+| --------------------------- | ---------------------------------- |
+| `vex sensor <s> getReading` | Get the reading from sensor `<s>`. |
+| `vex sensor <s> calibrate`  | Calibrate sensor `<s>`.            |
+| `vex sensor <s> reset`      | Reset sensor `<s>`.                |
+| `vex sensor all reset`      | Reset all sensors.                 |
+
+Example:
 
 ```
 vex sensor 1 getReading
 ```
 
-### 3. **Battery Commands**
+---
 
-Monitor battery diagnostics dynamically.
+### Battery
 
-| Command                      | Description                                    |
-| ---------------------------- | ---------------------------------------------- |
-| `vex battery getVoltage`     | Displays the battery voltage in volts.         |
-| `vex battery getCapacity`    | Displays the battery capacity as a percentage. |
-| `vex battery getTemperature` | Displays the battery temperature in Celsius.   |
-| `vex battery getDiagnostics` | Displays all battery diagnostics.              |
+Check your robot’s battery stats.
 
-**Example:**
+| Command                      | What It Does                            |
+| ---------------------------- | --------------------------------------- |
+| `vex battery getVoltage`     | Get the battery voltage in volts.       |
+| `vex battery getCapacity`    | Get the battery capacity as a percent.  |
+| `vex battery getTemperature` | Get the battery temperature in Celsius. |
+| `vex battery getDiagnostics` | Get all battery info.                   |
+
+Example:
 
 ```
 vex battery getDiagnostics
 ```
 
-### 4. **Robot Commands**
+---
 
-Perform high-level robot operations like movement and rotation.
+### Robot
 
-| Command                                    | Description                                               |
-| ------------------------------------------ | --------------------------------------------------------- |
-| `vex robot move <m1> <m2> <dist> <speed>`  | Moves motors `<m1>` and `<m2>` for a distance at a speed. |
-| `vex robot turn <m1> <m2> <angle> <speed>` | Turns the robot using motors `<m1>` and `<m2>`.           |
-| `vex robot stop`                           | Stops all robot movement.                                 |
-| `vex robot reset`                          | Resets the robot's state.                                 |
+High-level robot stuff.
 
-**Example:**
+| Command                                    | What It Does                                             |
+| ------------------------------------------ | -------------------------------------------------------- |
+| `vex robot move <m1> <m2> <dist> <speed>`  | Move motors `<m1>` and `<m2>` for `<dist>` at `<speed>`. |
+| `vex robot turn <m1> <m2> <angle> <speed>` | Turn the robot using `<m1>` and `<m2>`.                  |
+| `vex robot stop`                           | Stop all movement.                                       |
+| `vex robot reset`                          | Reset the robot state.                                   |
+
+Example:
 
 ```
 vex robot move 1 2 500 100
 ```
 
-### 5. **Debug Commands**
+---
 
-Enable or disable debugging modes.
+### Debugging
 
-| Command           | Description       |
+Turn debugging on/off.
+
+| Command           | What It Does      |
 | ----------------- | ----------------- |
 | `vex debug start` | Starts debugging. |
 | `vex debug stop`  | Stops debugging.  |
 
-**Example:**
+Example:
 
 ```
 vex debug start
@@ -177,13 +165,13 @@ vex debug start
 
 ## Error Handling
 
-A global error-handling system ensures robust command execution:
+When something goes wrong:
 
-1. **Input Validation**: Invalid commands return usage messages.
-2. **Runtime Exceptions**: Unexpected errors are caught and reported.
-3. **Feedback Mechanism**: Errors are displayed on the robot screen and sent to the serial interface.
+1. It tells you via serial.
+2. It shows an error on the screen.
+3. It doesn’t break (hopefully).
 
-**Example:**
+Example:
 
 ```
 > vex motor 99 set 100
@@ -192,22 +180,10 @@ A global error-handling system ensures robust command execution:
 
 ---
 
-## Development Guide
+## Adding Commands
 
-### Adding New Commands
-
-1. Create a new command class inheriting from `Command`.
-2. Implement the `execute` function to define the command’s behavior.
-3. Register the command in the `CommandManager`.
-
-**Example:**
-
-```cpp
-commandManager.registerCommand(std::make_unique<YourNewCommand>());
-```
+1. Write a new class that inherits from `Command`.
+2. Implement `execute` to do your thing.
+3. Register it in `CommandManager`.
 
 ---
-
-## Acknowledgments
-
-This project leverages the [PROS library](https://pros.cs.purdue.edu/v5/) for VEX robotics development. It is inspired by the need for a more dynamic and modular approach to robot control and experimentation.
