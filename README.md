@@ -141,7 +141,7 @@ High-level robot stuff.
 Example:
 
 ```
-vex robot move 1 2 500 100
+vex robot move forward 188
 ```
 
 ---
