@@ -15,7 +15,7 @@ void MotorCommand::execute(const std::vector<std::string> &args)
 {
     handleErrors("Command Execution", [&]()
                  {
-        if (args.size() < 3)
+    if (args.size() < 3)
     {
         update_screen("Invalid arguments.", "Usage: vex motor <id> <action> <arguments>");
         send_serial("Error: Invalid arguments for motor command.");

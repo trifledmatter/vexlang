@@ -16,5 +16,5 @@ void PingCommand::execute(const std::vector<std::string> &args)
                  {pros::lcd::initialize();
     update_screen("None", "PONG!");
 
-    send_serial("PONG!\n"); });
+    send_serial("PONG!"); });
 }

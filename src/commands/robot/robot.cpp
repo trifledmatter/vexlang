@@ -1,5 +1,8 @@
 #include "commands/robot/robot.hpp"
 #include "errors.hpp"
+
+#include <thread>
+#include <chrono>
 #include <stdexcept>
 
 RobotCommand::RobotCommand()
@@ -45,37 +48,133 @@ void RobotCommand::execute(const std::vector<std::string> &args)
 
 void RobotCommand::handleMoveAction(const std::vector<std::string> &args)
 {
-    if (args.size() < 4)
+
+    std::string debug_args = "";
+    for (const auto &arg : args)
     {
-        update_screen("Invalid arguments for move action.", "Usage: vex robot move <m1> <m2> <dist> <speed>");
+        debug_args += arg + " ";
+    }
+    send_serial(debug_args);
+    update_screen("Debug", debug_args.c_str());
+
+    /**
+     * Rework the robot move command.
+     *
+     * Syntax: vex robot move <forward | backward | left | right | armUp | armDown | clawOpen | clawClose> <velocity 1 - 199>
+     */
+    if (args.size() < 2)
+    {
+        update_screen("Invalid arguments for move action.", "Usage: vex robot move <action> <velocity>");
         return;
     }
 
-    int motor1 = parseMotorId(args[0]);
-    int motor2 = parseMotorId(args[1]);
-    int distance = parseArgument(args[2], "distance");
-    int speed = parseArgument(args[3], "speed");
+    // Left Wheel - 1
+    // Right Wheel - 10
+    // Arm - 2
+    // Claw - 8
+    pros::Motor leftWheel(20);
+    pros::Motor rightWheel(11);
+    pros::Motor arm(2);
+    pros::Motor claw(9);
 
-    if (motor1 == -1 || motor2 == -1 || distance == -1 || speed == -1)
+    // no need to parse motor if we know which ones we are using
+    std::string action = args[0];
+    int velocity = parseArgument(args[1], "velocity");
+
+    if (velocity > 199 || velocity < 1)
     {
+        send_serial("Invalid velocity provided for robot move, range must be within 10 and 199.");
+        update_screen("Invalid velocity range set.", "");
         return;
     }
 
-    try
+    if (action == "forward")
     {
-        pros::Motor m1(motor1);
-        pros::Motor m2(motor2);
-
-        m1.move_relative(distance, speed);
-        m2.move_relative(distance, speed);
-
-        send_serial("Robot moving: motors " + std::to_string(motor1) + " and " + std::to_string(motor2) +
-                    " for distance " + std::to_string(distance) + " at speed " + std::to_string(speed) + ".");
+        leftWheel.move_velocity(velocity);
+        rightWheel.move_velocity(-velocity);
+        send_serial("Moved forward");
+        update_screen("Moved forward", "");
     }
-    catch (...)
+    else if (action == "backward")
     {
-        update_screen("Failed to move the robot.", "");
+        leftWheel.move_velocity(-velocity);
+        rightWheel.move_velocity(velocity);
+        send_serial("Moved backward");
+        update_screen("Moved backward", "");
     }
+    else if (action == "left")
+    {
+        leftWheel.move_velocity(velocity);
+        rightWheel.move_velocity(velocity);
+        send_serial("Moved left");
+        update_screen("Moved left", "");
+    }
+    else if (action == "right")
+    {
+        leftWheel.move_velocity(velocity);
+        rightWheel.move_velocity(velocity);
+        send_serial("Moved right");
+        update_screen("Moved right", "");
+    }
+    else if (action == "armUp")
+    {
+        arm.move_velocity(velocity);
+        send_serial("Moved arm up");
+        update_screen("Moved arm up", "");
+    }
+    else if (action == "armDown")
+    {
+        arm.move_velocity(-velocity);
+        send_serial("Moved arm down");
+        update_screen("Moved arm down", "");
+    }
+    else if (action == "clawOpen")
+    {
+        claw.move_velocity(velocity);
+        send_serial("Opened Claw");
+        update_screen("Opened Claw", "");
+    }
+    else if (action == "clawClose")
+    {
+        claw.move_velocity(-velocity);
+        send_serial("Closed Claw");
+        update_screen("Closed Claw", "");
+    }
+    else
+    {
+        claw.move_velocity(0);
+        arm.move_velocity(0);
+        leftWheel.move_velocity(0);
+        rightWheel.move_velocity(0);
+        send_serial("Braking");
+        update_screen("Braking", "");
+    }
+
+    // int motor1 = parseMotorId(args[0]);
+    // int motor2 = parseMotorId(args[1]);
+    // int distance = parseArgument(args[2], "distance");
+    // int speed = parseArgument(args[3], "speed");
+
+    // if (motor1 == -1 || motor2 == -1 || distance == -1 || speed == -1)
+    // {
+    //     return;
+    // }
+
+    // try
+    // {
+    //     pros::Motor m1(motor1);
+    //     pros::Motor m2(motor2);
+
+    //     m1.move_relative(distance, speed);
+    //     m2.move_relative(distance, speed);
+
+    //     send_serial("Robot moving: motors " + std::to_string(motor1) + " and " + std::to_string(motor2) +
+    //                 " for distance " + std::to_string(distance) + " at speed " + std::to_string(speed) + ".");
+    // }
+    // catch (...)
+    // {
+    //     update_screen("Failed to move the robot.", "");
+    // }
 }
 
 void RobotCommand::handleTurnAction(const std::vector<std::string> &args)

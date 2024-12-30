@@ -131,12 +131,12 @@ vex battery getDiagnostics
 
 High-level robot stuff.
 
-| Command                                    | What It Does                                             |
-| ------------------------------------------ | -------------------------------------------------------- |
-| `vex robot move <m1> <m2> <dist> <speed>`  | Move motors `<m1>` and `<m2>` for `<dist>` at `<speed>`. |
-| `vex robot turn <m1> <m2> <angle> <speed>` | Turn the robot using `<m1>` and `<m2>`.                  |
-| `vex robot stop`                           | Stop all movement.                                       |
-| `vex robot reset`                          | Reset the robot state.                                   |
+| Command                                    | What It Does                                          |
+| ------------------------------------------ | ----------------------------------------------------- |
+| `vex robot move <direction> <velocity>`    | Self explainatory just like every other command here. |
+| `vex robot turn <m1> <m2> <angle> <speed>` | Turn the robot using `<m1>` and `<m2>`.               |
+| `vex robot stop`                           | Stop all movement.                                    |
+| `vex robot reset`                          | Reset the robot state.                                |
 
 Example:
 
